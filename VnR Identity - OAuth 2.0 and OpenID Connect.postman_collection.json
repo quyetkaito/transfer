@@ -1,0 +1,1849 @@
+{
+	"info": {
+		"_postman_id": "9c021253-da6b-4d36-95ad-48319d34e540",
+		"name": "VnR Identity - OAuth 2.0 and OpenID Connect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10955435"
+	},
+	"item": [
+		{
+			"name": "Authorization code flow with PKCE",
+			"item": [
+				{
+					"name": "Authorize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "{{tenant_url}}/connect/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "{{tenant_url}}/connect/authorize",
+									"type": "string"
+								},
+								{
+									"key": "useBrowser",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "client_authentication",
+									"value": "body",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "{{tenant_url}}/connect/token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code_with_pkce",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "HRM10 Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/connect/authorize?scope={{scope}}&response_type=code&redirect_uri={{redirect_uri}}&client_id={{client_id}}&code_challenge={{code_challenge}}&code_challenge_method={{code_method}}&state={{state}}&nonce={{nonce}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "scope",
+									"value": "{{scope}}"
+								},
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}"
+								},
+								{
+									"key": "code_challenge",
+									"value": "{{code_challenge}}"
+								},
+								{
+									"key": "code_challenge_method",
+									"value": "{{code_method}}"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}"
+								},
+								{
+									"key": "nonce",
+									"value": "{{nonce}}"
+								}
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/v3.0/reference/post_oauth2-authorize-app-id-](https://identity-developer.cyberark.com/v3.0/reference/post_oauth2-authorize-app-id-)"
+					},
+					"response": [
+						{
+							"name": "Authorize",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/authorize/{{application_id}}?scope={{scope}}&response_type=code&redirect_uri=https://oauth.pstmn.io/v1/callback&client_id={{client_id}}&code_challenge={{code_challenge}}&code_challenge_method={{code_method}}&state={{state}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"authorize",
+										"{{application_id}}"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "{{scope}}"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										},
+										{
+											"key": "code_challenge",
+											"value": "{{code_challenge}}"
+										},
+										{
+											"key": "code_challenge_method",
+											"value": "{{code_method}}"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "html",
+							"header": [],
+							"cookie": [],
+							"body": "<html>\n    <head>\n        <title>Object moved</title>\n    </head>\n    <body>\n        <h2>Object moved to \n            <a href=\"https://oauth.pstmn.io:443/v1/callback?state=abc&amp;responseType=code&amp;code=fBkNUqDpv0Oe9ykrkVyBatLmq0e6ZxbVvsI3MlX1pUc1\">here</a>.\n        </h2>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Request for tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.collectionVariables.set(\"access_token\", jsonData.access_token);\r",
+									"pm.collectionVariables.set(\"id_token\", jsonData.id_token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", jsonData.refresh_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "{{authorization_code}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "code_verifier",
+									"value": "{{code_verifier}}",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/connect/token",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id)"
+					},
+					"response": [
+						{
+							"name": "Request for tokens",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "{{authorization_code}}",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}",
+											"type": "text"
+										},
+										{
+											"key": "code_verifier",
+											"value": "{{code_verifier}}",
+											"type": "text"
+										},
+										{
+											"key": "nonce",
+											"value": "{{nonce}}",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/token/{{application_id}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"token",
+										"{{application_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"id_token\": \"eyJhbGciOi...\",\n    \"refresh_token\": \"PP0Q6...\",\n    \"access_token\": \"eyJhbGciOiJSUzI1NiI...\",\n    \"token_type\": \"Bearer\",\n    \"state\": \"abc\",\n    \"expires_in\": 18000,\n    \"scope\": \"openid Location profile\"\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Authorization code flow",
+			"item": [
+				{
+					"name": "Authorize",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let URL = require('url');\r",
+									"var querystring = require('querystring')\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 302\", function() {\r",
+									"    pm.response.to.have.status(302);\r",
+									"})\r",
+									"\r",
+									"var url = URL.parse(pm.response.headers.get(\"Location\"))\r",
+									"var apiPath = url.query;\r",
+									"\r",
+									"const eachParamArray = apiPath.split('&');\r",
+									"let params = {};\r",
+									"eachParamArray.forEach((param) => {\r",
+									"    const key = param.split('=')[0];\r",
+									"    const value = param.split('=')[1];\r",
+									"    Object.assign(params, {[key]: value});\r",
+									"});\r",
+									"\r",
+									"pm.collectionVariables.set(\"authorization_code\", params['code']);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "state",
+									"value": "{{state}}",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "{{tenant_url}}/connect/token",
+									"type": "string"
+								},
+								{
+									"key": "authUrl",
+									"value": "{{tenant_url}}/connect/authorize",
+									"type": "string"
+								},
+								{
+									"key": "useBrowser",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "client_authentication",
+									"value": "body",
+									"type": "string"
+								},
+								{
+									"key": "refreshTokenUrl",
+									"value": "{{tenant_url}}/connect/token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code_with_pkce",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "HRM10 Token",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/connect/authorize?response_type=code&client_id={{client_id}}&redirect_uri={{redirect_uri}}&scope={{scope}}&state={{state}}&nonce={{nonce}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "response_type",
+									"value": "code"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}"
+								},
+								{
+									"key": "nonce",
+									"value": "{{nonce}}"
+								}
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-](https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-)"
+					},
+					"response": [
+						{
+							"name": "Authorize",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tenant_url}}/OAuth2/Authorize/{{application_id}}?response_type=code&client_id={{client_id}}&redirect_uri=https://oauth.pstmn.io/v1/callback&scope={{scope}}&state={{state}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"OAuth2",
+										"Authorize",
+										"{{application_id}}"
+									],
+									"query": [
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback"
+										},
+										{
+											"key": "scope",
+											"value": "{{scope}}"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "html",
+							"header": [],
+							"cookie": [],
+							"body": "<html>\n    <head>\n        <title>Object moved</title>\n    </head>\n    <body>\n        <h2>Object moved to \n            <a href=\"https://oauth.pstmn.io:443/v1/callback?state=abc&amp;responseType=code&amp;code=TxSPy2UGcCJhK9tJU9Wyzl-EjQDpo9pEmG8I7FeLaDk1\">here</a>.\n        </h2>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Request for tokens",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.collectionVariables.set(\"access_token\", jsonData.access_token);\r",
+									"pm.collectionVariables.set(\"id_token\", jsonData.id_token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", jsonData.refresh_token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "{{authorization_code}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "authorization_code",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/connect/token",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id)"
+					},
+					"response": [
+						{
+							"name": "Request for tokens",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback",
+											"type": "text"
+										},
+										{
+											"key": "code",
+											"value": "{{authorization_code}}",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "authorization_code",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{client_secret}}",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}",
+											"type": "text"
+										},
+										{
+											"key": "nonce",
+											"value": "{{nonce}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/token/{{application_id}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"token",
+										"{{application_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"id_token\": \"eyJhbGciOi...\",\n    \"refresh_token\": \"PP0Q6...\",\n    \"access_token\": \"eyJhbGciOiJSUzI1NiI...\",\n    \"token_type\": \"Bearer\",\n    \"state\": \"abc\",\n    \"expires_in\": 18000,\n    \"scope\": \"openid Location profile\"\n}"
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var uuid = require('uuid')",
+							"",
+							"var code_verifier = uuid.v4()",
+							"var code_challenge = CryptoJS.SHA256(code_verifier).toString()",
+							"",
+							"console.log(code_verifier)",
+							"console.log(code_challenge)"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Implicit Flow",
+			"item": [
+				{
+					"name": "Authorize endpoint - id_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let URL = require('url');\r",
+									"var url = URL.parse(pm.response.headers.get(\"Location\"))\r",
+									"api_path = url.hash\r",
+									"\r",
+									"const hash_string  = api_path.split('#')\r",
+									"const eachParamArray = hash_string[1].split('&');\r",
+									"let params = {};\r",
+									"eachParamArray.forEach((param) => {\r",
+									"    const key = param.split('=')[0];\r",
+									"    const value = param.split('=')[1];\r",
+									"    Object.assign(params, {[key]: value});\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"id_token\", params['id_token']);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/connect/authorize?scope={{scope}}&response_type=id_token&redirect_uri={{redirect_uri}}&client_id={{client_id}}&state={{state}}&nonce={{nonce}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "scope",
+									"value": "{{scope}}"
+								},
+								{
+									"key": "response_type",
+									"value": "id_token"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}"
+								},
+								{
+									"key": "nonce",
+									"value": "{{nonce}}"
+								}
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-](https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-)"
+					},
+					"response": [
+						{
+							"name": "Authorize endpoint - id_token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/authorize/{{application_id}}?scope={{scope}}&response_type=id_token&redirect_uri=https://oauth.pstmn.io/v1/callback&client_id={{client_id}}&state={{state}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"authorize",
+										"{{application_id}}"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "{{scope}}"
+										},
+										{
+											"key": "response_type",
+											"value": "id_token"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "html",
+							"header": [],
+							"cookie": [],
+							"body": "<html>\n    <head>\n        <title>Object moved</title>\n    </head>\n    <body>\n        <h2>Object moved to \n            <a href=\"https://oauth.pstmn.io:443/v1/callback#state=abc&amp;id_token=eyJhbw...&amp;scope=openid%20Location%20profile\">here</a>.\n        </h2>\n    </body>\n</html>"
+						}
+					]
+				},
+				{
+					"name": "Authorize endpoint - id_token token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let URL = require('url');\r",
+									"var url = URL.parse(pm.response.headers.get(\"Location\"))\r",
+									"api_path = url.hash\r",
+									"\r",
+									"const hash_string  = api_path.split('#')\r",
+									"const eachParamArray = hash_string[1].split('&');\r",
+									"let params = {};\r",
+									"eachParamArray.forEach((param) => {\r",
+									"    const key = param.split('=')[0];\r",
+									"    const value = param.split('=')[1];\r",
+									"    Object.assign(params, {[key]: value});\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"access_token\", params['access_token']);\r",
+									"pm.collectionVariables.set(\"id_token\", params['id_token']);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/connect/authorize?scope={{scope}}&response_type=id_token token&redirect_uri={{redirect_uri}}&client_id={{client_id}}&state={{state}}&nonce={{nonce}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"authorize"
+							],
+							"query": [
+								{
+									"key": "scope",
+									"value": "{{scope}}"
+								},
+								{
+									"key": "response_type",
+									"value": "id_token token"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}"
+								},
+								{
+									"key": "nonce",
+									"value": "{{nonce}}"
+								}
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-](https://identity-developer.cyberark.com/reference/post_oauth2-authorize-app-id-)"
+					},
+					"response": [
+						{
+							"name": "Authorize endpoint - id_token token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/authorize/{{application_id}}?scope={{scope}}&response_type=id_token token&redirect_uri=https://oauth.pstmn.io/v1/callback&client_id={{client_id}}&state={{state}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"authorize",
+										"{{application_id}}"
+									],
+									"query": [
+										{
+											"key": "scope",
+											"value": "{{scope}}"
+										},
+										{
+											"key": "response_type",
+											"value": "id_token token"
+										},
+										{
+											"key": "redirect_uri",
+											"value": "https://oauth.pstmn.io/v1/callback"
+										},
+										{
+											"key": "client_id",
+											"value": "{{client_id}}"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}"
+										}
+									]
+								}
+							},
+							"status": "Found",
+							"code": 302,
+							"_postman_previewlanguage": "html",
+							"header": [],
+							"cookie": [],
+							"body": "<html>\n    <head>\n        <title>Object moved</title>\n    </head>\n    <body>\n        <h2>Object moved to \n            <a href=\"https://oauth.pstmn.io:443/v1/callback#state=abc&amp;access_token=eyJ...&amp;token_type=Bearer&amp;expires_in=18000&amp;id_token=eyJhbGci...&amp;scope=openid%20Location%20profile\">here</a>.\n        </h2>\n    </body>\n</html>"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Client credentials",
+			"item": [
+				{
+					"name": "Token request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.collectionVariables.set(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "hrm10_api",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "secret",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}",
+									"type": "text"
+								},
+								{
+									"key": "nonce",
+									"value": "{{nonce}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/connect/token",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id)"
+					},
+					"response": [
+						{
+							"name": "Token request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{service_username}}",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{service_userpassword}}",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "{{scope}}",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "{{state}}",
+											"type": "text"
+										},
+										{
+											"key": "nonce",
+											"value": "{{nonce}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/token/{{application_id}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"token",
+										"{{application_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGciOiJSUzI1N...\",\n    \"token_type\": \"Bearer\",\n    \"state\": \"abc\",\n    \"expires_in\": 18000,\n    \"scope\": \"All\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Resource owner password grant",
+			"item": [
+				{
+					"name": "Token request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.collectionVariables.set(\"access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{client_id}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "VNR@123",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/connect/token",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						},
+						"description": "For more information about this API refer: [https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id)"
+					},
+					"response": [
+						{
+							"name": "Token request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "{{scope}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{tenant_url}}/oauth2/token/{{application_id}}",
+									"host": [
+										"{{tenant_url}}"
+									],
+									"path": [
+										"oauth2",
+										"token",
+										"{{application_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJhbGc...\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 18000,\n    \"scope\": \"All\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.collectionVariables.set(\"access_token\", jsonData.access_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "{{refresh_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{tenant_url}}/connect/token",
+					"host": [
+						"{{tenant_url}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				},
+				"description": "Please refer to the documentation link to setup OpenID Connect custom app in CyberArk Identity - [https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm](https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm)\n\nPlease refer to the documentation on how to use refresh tokens: [https://identity-developer.cyberark.com/docs/refresh-tokens-1](https://identity-developer.cyberark.com/docs/refresh-tokens-1)\n\nFor more information on the CyberArk Identity OIDC APIs please refer to: [https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-token-app-id)\n\n**Pre-requisites**:\n\nWe need to configure the OpenID Connect custom app in CyberArk Identity and generate a refresh token using any of the grants in OIDC."
+			},
+			"response": [
+				{
+					"name": "Refresh token",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/oauth2/token/{{application_id}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"oauth2",
+								"token",
+								"{{application_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"access_token\": \"eyJhb...\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 18000,\n    \"scope\": \"openid Location profile\"\n}"
+				}
+			]
+		},
+		{
+			"name": "UserInfo endpoint",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkJEOEZBRjcxM0FCMUEzMDk1RThCNzdBRjBBMzgyNTNCIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE3MjMyNzEwODIsImV4cCI6MTcyMzI3NDY4MiwiaXNzIjoiaHR0cHM6Ly9obi1zaXRlLmRldi5sb2NhbDoyMDA1IiwiYXVkIjpbInByb2ZpbGUiLCJodHRwczovL2huLXNpdGUuZGV2LmxvY2FsOjIwMDUvcmVzb3VyY2VzIl0sImNsaWVudF9pZCI6ImhybTEwX2FwaSIsInN1YiI6IjY5Zjg0NzRmLTFjMTMtNDJlZi1hNWFmLTJlY2FjY2VkN2I5NSIsImF1dGhfdGltZSI6MTcyMzI1NDkyMywiaWRwIjoibG9jYWwiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJocm1fdXNlcl9pZCI6IjY5Zjg0NzRmLTFjMTMtNDJlZi1hNWFmLTJlY2FjY2VkN2I5NSIsImhybV9wcm9maWxlX2lkIjoiM2VlZGFjM2EtNzA2NC00NmU2LWFlNjgtYmZjODMyOWNiMWQ2IiwiaHJtX3VzZXJuYW1lIjoiYWRtaW4iLCJocm1faXNfYWN0aXZhdGUiOiJ0cnVlIiwiaHJtX3R5cGVfdXNlciI6IkVfTWFpbixFX1BvcnRhbCIsImhybV9mdWxsbmFtZSI6Ik5HVVnhu4ROIFRI4buKIE3hu7ggTElOSCIsImhybV91c2VyX2luZm9fbmFtZSI6Ik5HVVnhu4ROIFRI4buKIE3hu7ggTElOSCIsImhybV9jb2RlX2VtcCI6IjIxMTEwMDM5IiwiaHJtX2ltYWdlX3BhdGgiOiJQcm9maWxlX2FiM2I5YzNkLTk3MjMtNDE4Ny1iMzU1LWM1M2U4M2M4OWYxYy5wbmciLCJocm1fZW1haWwiOiJ0ZXN0MXZucmVzb3VyY2VAZ21haWwuY29tIiwiaHJtX2lzX3N1cGVyX2FkbWluIjoiZmFsc2UiLCJocm1fbGFuZ19jb2RlIjoiVk4iLCJqdGkiOiI1MjNBRTM5OEFBMTVFMzI4RTlFRjhGQTNCMENEQzI5NyIsInNpZCI6IjkwNDIzMTVERENBRTY3RTZDQUJDREVENUE4NEFCMzA1IiwiaWF0IjoxNzIzMjYzMTQ5LCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwiYXBpIiwib2ZmbGluZV9hY2Nlc3MiXSwiYW1yIjpbInB3ZCJdfQ.HCK7NQYGx4t78nRwY2ZrQ3aQzYdEv7u390GC8ltsg_INzu47oUbp9U1412F_mYgZV95FYpw-9iV_-9bP9paJPw10gGtWzMtYguYBGtgp9J2rElNvpa7x2eeVEYT7KSHgJu8q0WkWlZgJLjMBLnNbgBuEMt2OerGFK3UcvTm76e7s9tCOBdUY_70v_SO24rKLVb-tyiBx2vWYx4mwzJOhBuXWNNC02VSu_0xQJhOfaxisHAzDWyva3Sn3f1smSPbKS9J6i6xrW_L_kBBw7ozz1yAN0ird-FWRMSWgU48D4KrwwhXBE-6OA2zcOa_Ua20RWsNQbkck6DDIl9jbwz5FPA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{tenant_url}}/connect/userinfo",
+					"host": [
+						"{{tenant_url}}"
+					],
+					"path": [
+						"connect",
+						"userinfo"
+					]
+				},
+				"description": "Please refer to the documentation link to setup OpenID Connect custom app in CyberArk Identity - [https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm](https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm)\n\nPlease refer to the documentation on how to use userinfo endpoint: [https://identity-developer.cyberark.com/docs/userinfo-endpoint](https://identity-developer.cyberark.com/docs/userinfo-endpoint)\n\nFor more information on the CyberArk Identity userinfo API please refer to: [https://identity-developer.cyberark.com/reference/post_oauth2-userinfo-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-userinfo-app-id)\n\n**Pre-requisites**:\n\nWe need to configure the OpenID Connect custom app in CyberArk Identity and generate an access token using any of the grants in OIDC."
+			},
+			"response": [
+				{
+					"name": "UserInfo endpoint",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{tenant_url}}/oauth2/userinfo/{{application_id}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"oauth2",
+								"userinfo",
+								"{{application_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"auth_time\": 1663084549,\n    \"given_name\": \"XXXX\",\n    \"aud\": \"90a...\",\n    \"name\": \"XXXX\",\n    \"family_name\": \"XXXX\",\n    \"preferred_username\": \"XXXX\",\n    \"unique_name\": \"XXXX\",\n    \"sub\": \"c2c7b...\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Introspect",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{tenant_url}}/connect/introspect",
+					"host": [
+						"{{tenant_url}}"
+					],
+					"path": [
+						"connect",
+						"introspect"
+					]
+				},
+				"description": "Please refer to the documentation link to setup the OpenID Connect custom app in CyberArk Identity - [https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm](https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm)\n\nFor more information on this API please refer to: [https://identity-developer.cyberark.com/reference/post_oauth2-introspect-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-introspect-app-id)\n\n**Pre-requisites**:\n\nWe need to configure the OpenID Connect custom app in CyberArk Identity."
+			},
+			"response": [
+				{
+					"name": "introspect",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://example.my.idaptive.app/oauth2/introspect/",
+							"protocol": "https",
+							"host": [
+								"example",
+								"my",
+								"idaptive",
+								"app"
+							],
+							"path": [
+								"oauth2",
+								"introspect",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"body": "{\n    \"iss\": \"{tenant_url}/{application_id}/\",\n    \"auth_time\": 1663236025,\n    \"iat\": 1663236295,\n    \"aud\": \"90a...\",\n    \"active\": true,\n    \"unique_name\": \"XXXX\",\n    \"app_id\": \"{application_id}\",\n    \"exp\": 1663254295,\n    \"sub\": \"c2c...\",\n    \"scope\": \"openid phone\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Revoke tokens",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{tenant_url}}/connect/revocation",
+					"host": [
+						"{{tenant_url}}"
+					],
+					"path": [
+						"connect",
+						"revocation"
+					]
+				},
+				"description": "Please refer to the documentation link to setup the OpenID Connect custom app in CyberArk Identity - [https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm](https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htmFor)\n\nFor more information on how to use revoke token API refer to: [https://identity-developer.cyberark.com/docs/revoke-tokens](https://identity-developer.cyberark.com/docs/revoke-tokens)\n\nFor more information on this API please refer to: [https://identity-developer.cyberark.com/reference/post_oauth2-revoke-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-revoke-app-id)\n\n**Pre-requisites**:\n\nWe need to configure the OpenID Connect custom app in CyberArk Identity."
+			},
+			"response": [
+				{
+					"name": "Revoke tokens",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/OAuth2/Revoke/{{application_id}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"OAuth2",
+								"Revoke",
+								"{{application_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "EndSession",
+			"protocolProfileBehavior": {
+				"followRedirects": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{tenant_url}}/connect/endsession?post_logout_redirect_uri={{redirect_uri}}&state={{state}}&id_token_hint={{id_token}}",
+					"host": [
+						"{{tenant_url}}"
+					],
+					"path": [
+						"connect",
+						"endsession"
+					],
+					"query": [
+						{
+							"key": "post_logout_redirect_uri",
+							"value": "{{redirect_uri}}"
+						},
+						{
+							"key": "state",
+							"value": "{{state}}"
+						},
+						{
+							"key": "id_token_hint",
+							"value": "{{id_token}}"
+						}
+					]
+				},
+				"description": "Please refer to the documentation link to setup the OpenID Connect custom app in CyberArk Identity - [https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htm](https://docs.cyberark.com/Product-Doc/OnlineHelp/Idaptive/Latest/en/Content/Applications/AppsCustom/CustOpenID.htmFor)\n\nFor more information on how to use revoke token API refer to: [https://identity-developer.cyberark.com/docs/end-openid-connect-session-on-cyberark-identity](https://identity-developer.cyberark.com/docs/end-openid-connect-session-on-cyberark-identity)\n\nFor more information on this API please refer to: [https://identity-developer.cyberark.com/reference/post_oauth2-endsession-app-id](https://identity-developer.cyberark.com/reference/post_oauth2-endsession-app-id)\n\n**Pre-requisites**:\n\nWe need to configure the OpenID Connect custom app in CyberArk Identity."
+			},
+			"response": [
+				{
+					"name": "EndSession",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_logout_redirect_uri",
+									"value": "https://oauth.pstmn.io/v1/callback",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "{{state}}",
+									"type": "text"
+								},
+								{
+									"key": "id_token_hint",
+									"value": "{{id_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{tenant_url}}/oauth2/endsession/{{application_id}}",
+							"host": [
+								"{{tenant_url}}"
+							],
+							"path": [
+								"oauth2",
+								"endsession",
+								"{{application_id}}"
+							]
+						}
+					},
+					"status": "Found",
+					"code": 302,
+					"_postman_previewlanguage": "html",
+					"header": [],
+					"cookie": [],
+					"body": "<html>\n    <head>\n        <title>Object moved</title>\n    </head>\n    <body>\n        <h2>Object moved to \n            <a href=\"https://oauth.pstmn.io/v1/callback?state=abc\">here</a>.\n        </h2>\n    </body>\n</html>"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "tenant_url",
+			"value": "https://hn-site.dev.local:2005",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "application_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "client_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "client_secret",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "scope",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "state",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "nonce",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bounce",
+			"value": ""
+		},
+		{
+			"key": "result",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "approved_scopes",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "denied_scopes",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "service_username",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "service_userpassword",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "redirect_uri",
+			"value": "https://hn-site.dev.local:2004/swagger/oauth2-redirect.html",
+			"type": "string"
+		},
+		{
+			"key": "code_challenge",
+			"value": "rrsv_GL5iipUGp6yR5w5ra77fdggOxJ6htH9E217PeI",
+			"type": "string"
+		},
+		{
+			"key": "code_verifier",
+			"value": "MR~lBQbZeIHsG3RnZuvgWmrAr8y1Ia~muw2zBrJdPlz5A7carMvqfm3MxiWCMN7KOjzfbZo0is3FxyWDf6e4Ad0sU6Of10.PvukuaqO2ez~YLU.lCrLYDC4.xDb420z2",
+			"type": "string"
+		},
+		{
+			"key": "code_method",
+			"value": "S256",
+			"type": "string"
+		},
+		{
+			"key": "mechanism_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "session_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "authorization_code",
+			"value": "15912879F836ACE505E38B213681B92FAE5BE92D2140FAF1B964EEA4E01A0C2C",
+			"type": "string"
+		},
+		{
+			"key": "id_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
